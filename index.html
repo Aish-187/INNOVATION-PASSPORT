@@ -6,7 +6,7 @@
 <title>D&amp;T Innovation Team | M&amp;S</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Permanent+Marker&family=Caveat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500;1,600;1,700&family=Playfair+Display:ital,wght@1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{font-size:16px}
@@ -42,27 +42,26 @@ body{font-family:"DM Sans",Arial,Helvetica,sans-serif;color:#111;overflow:hidden
 .slide.active{display:flex}
 .slide-enter{animation:slideIn .6s cubic-bezier(.4,0,.2,1) both}
 @keyframes slideIn{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:scale(1)}}
-
-#home{background:#fff}
-.home-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem 2rem}
-.brand-center{text-align:center;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s ease .2s forwards;transform:translateY(15px)}
-.brand-center h1{font-family:"DM Sans",Arial,sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:700;color:#111;letter-spacing:4px;margin-bottom:.3rem;text-transform:uppercase}
-.brand-center p{font-size:clamp(.65rem,1.2vw,.8rem);text-transform:uppercase;letter-spacing:5px;color:#999;font-weight:400}
-.brand-line{width:50px;height:1px;background:#111;margin:.8rem auto 0}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
 
-.question-grid{display:flex;flex-direction:column;gap:1rem;max-width:800px;width:100%}
-.question-card{position:relative;padding:1.5rem 2rem;cursor:pointer;border-bottom:1px solid rgba(0,0,0,.1);background:#fff;transition:all .4s cubic-bezier(.4,0,.2,1);opacity:0;animation:fadeUp .7s ease forwards;transform:translateY(15px)}
-.question-card:nth-child(1){animation-delay:.2s}
-.question-card:nth-child(2){animation-delay:.35s}
-.question-card:nth-child(3){animation-delay:.5s}
-.question-card:nth-child(4){animation-delay:.65s}
-.question-card::after{content:"";position:absolute;bottom:0;left:0;width:0;height:2px;background:#111;transition:width .4s}
-.question-card:hover{background:#f5f5f5;transform:translateX(8px)}
-.question-card:hover::after{width:100%}
-.card-text{font-family:"Caveat",cursive;font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.4;color:#111;font-weight:700}
-.card-arrow{position:absolute;top:50%;right:20px;transform:translateY(-50%);font-size:1.2rem;color:#bbb;transition:all .3s}
-.question-card:hover .card-arrow{color:#111;transform:translateY(-50%) translateX(6px)}
+#home{background:#fff}
+.home-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 3rem;height:calc(100vh - 64px);overflow:hidden}
+
+.question-grid{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:0;width:100%;max-width:1100px;height:100%;padding:2rem 0}
+.question-card{position:relative;padding:1.8vh 1.5rem;cursor:pointer;background:transparent;transition:all .5s cubic-bezier(.4,0,.2,1);opacity:0;animation:fadeUp .8s ease forwards;transform:translateY(20px);width:100%;border-bottom:none}
+.question-card:nth-child(1){animation-delay:.3s}
+.question-card:nth-child(2){animation-delay:.5s}
+.question-card:nth-child(3){animation-delay:.7s}
+.question-card:nth-child(4){animation-delay:.9s}
+.question-card::before{content:"";position:absolute;bottom:0;left:0;width:100%;height:1px;background:linear-gradient(90deg,#111 0%,transparent 100%);opacity:.12}
+.question-card::after{content:"";position:absolute;bottom:0;left:0;width:0;height:1px;background:#111;transition:width .6s cubic-bezier(.4,0,.2,1)}
+.question-card:hover{transform:translateX(12px);background:transparent}
+.question-card:hover::after{width:60%}
+.card-text{font-family:"Playfair Display","Cormorant Garamond",Georgia,serif;font-style:italic;font-size:clamp(1.4rem,3.2vw,2.6rem);line-height:1.35;color:#111;font-weight:500;letter-spacing:-.02em}
+.card-arrow{position:absolute;top:50%;right:20px;transform:translateY(-50%);font-size:1.5rem;color:transparent;transition:all .5s cubic-bezier(.4,0,.2,1)}
+.question-card:hover .card-arrow{color:#111;transform:translateY(-50%) translateX(8px)}
+.card-num{position:absolute;top:50%;left:-2rem;transform:translateY(-50%);font-family:"DM Sans",sans-serif;font-size:.65rem;font-weight:300;color:#bbb;letter-spacing:2px;opacity:0;transition:opacity .4s}
+.question-card:hover .card-num{opacity:1}
 
 .splash-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.85);opacity:0;pointer-events:none;transition:opacity .5s}
 .splash-overlay.active{opacity:1;pointer-events:all}
@@ -117,7 +116,10 @@ body{font-family:"DM Sans",Arial,Helvetica,sans-serif;color:#111;overflow:hidden
 @media(max-width:768px){
 .site-header{padding:0 1.25rem;height:56px}
 .slide{padding-top:56px}
-.question-card{padding:1.2rem 1.5rem}
+.home-center{padding:0 1.5rem}
+.card-text{font-size:clamp(1.1rem,4.5vw,1.6rem)}
+.card-num{left:-1rem;font-size:.55rem}
+.question-card{padding:1.2vh 1rem}
 .answer-inner{padding:1rem 1.25rem;height:calc(100vh - 56px)}
 .splash-images img{width:100px}
 }
@@ -150,10 +152,10 @@ body{font-family:"DM Sans",Arial,Helvetica,sans-serif;color:#111;overflow:hidden
 
 <section class="slide active" id="home"><div class="home-center">
 <div class="question-grid">
-<div class="question-card" onclick="navigateTo('open-innovation')"><div class="card-text">&ldquo;Want to look beyond our own walls, tapping founders, startups, and emerging technologies to move faster on the ideas that will shape retail&rsquo;s next decade?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
-<div class="question-card" onclick="navigateTo('co-creation')"><div class="card-text">&ldquo;Want to leverage our partner&rsquo;s solutions / build together with initial funding support?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
-<div class="question-card" onclick="navigateTo('rapid-prototyping')"><div class="card-text">&ldquo;Want to build something quickly to fix a problem or prove a concept?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
-<div class="question-card" onclick="navigateTo('rapid-pilots')"><div class="card-text">&ldquo;Want to test what&rsquo;s credible before competitors do, backing the innovations that scale, and staying close to where the market is heading rather than reacting to it.&rdquo;</div><div class="card-arrow">&#8594;</div></div>
+<div class="question-card" onclick="navigateTo('open-innovation')"><span class="card-num">01</span><div class="card-text">&ldquo;Want to look beyond our own walls, tapping founders, startups, and emerging technologies to move faster on the ideas that will shape retail&rsquo;s next decade?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
+<div class="question-card" onclick="navigateTo('co-creation')"><span class="card-num">02</span><div class="card-text">&ldquo;Want to leverage our partner&rsquo;s solutions / build together with initial funding support?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
+<div class="question-card" onclick="navigateTo('rapid-prototyping')"><span class="card-num">03</span><div class="card-text">&ldquo;Want to build something quickly to fix a problem or prove a concept?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
+<div class="question-card" onclick="navigateTo('rapid-pilots')"><span class="card-num">04</span><div class="card-text">&ldquo;Want to test what&rsquo;s credible before competitors do, backing the innovations that scale, and staying close to where the market is heading rather than reacting to it.&rdquo;</div><div class="card-arrow">&#8594;</div></div>
 </div></div></section>
 
 <section class="slide answer-slide" id="open-innovation" style="background:#fff">
