@@ -64,11 +64,11 @@ body{font-family:"DM Sans",Arial,Helvetica,sans-serif;color:#111;overflow:hidden
 .card-arrow{position:absolute;bottom:12px;right:16px;font-size:.7rem;color:#bbb;transition:all .3s}
 .question-card:hover .card-arrow{color:#111;transform:translateX(4px)}
 
-.splash-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2000;display:flex;align-items:center;justify-content:center;background:#111;opacity:0;pointer-events:none;transition:opacity .5s}
+.splash-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2000;display:flex;align-items:center;justify-content:center;background:rgba(17,17,17,.85);opacity:0;pointer-events:none;transition:opacity .5s}
 .splash-overlay.active{opacity:1;pointer-events:all}
-.splash-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1}
+.splash-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
 .splash-bg-gallery{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;overflow:hidden}
-.splash-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);transition:opacity 1s ease,transform 8s ease;filter:brightness(.3)}
+.splash-bg-img{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);transition:opacity 1.2s ease,transform 8s ease;filter:brightness(.5)}
 .splash-bg-img.active{opacity:1;transform:scale(1)}
 .splash-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem}
 .splash-title{font-family:"DM Sans",Arial,sans-serif;font-size:clamp(2.5rem,8vw,5rem);font-weight:700;color:#fff;letter-spacing:8px;line-height:1.15;white-space:pre-line;text-transform:uppercase;overflow:hidden;text-shadow:0 4px 40px rgba(0,0,0,.5)}
@@ -245,8 +245,7 @@ function spawnBurst(cx,cy,count){
 }
 
 function animateSplash(){
-  sCtx.fillStyle="rgba(17,17,17,.15)";
-  sCtx.fillRect(0,0,sCanvas.width,sCanvas.height);
+  sCtx.clearRect(0,0,sCanvas.width,sCanvas.height);
   for(var i=particles.length-1;i>=0;i--){particles[i].update();particles[i].draw();if(particles[i].life<=0)particles.splice(i,1)}
   for(var j=rings.length-1;j>=0;j--){rings[j].update();rings[j].draw();if(rings[j].alpha<=0)rings.splice(j,1)}
   if(particles.length>0||rings.length>0){animId=requestAnimationFrame(animateSplash)}else{animId=null}
@@ -298,7 +297,7 @@ function showSplash(slideId,cb){
   setTimeout(function(){spawnBurst(cx,cy,60)},250);
 
   // Start canvas animation
-  sCtx.fillStyle="rgba(17,17,17,.01)";sCtx.fillRect(0,0,sCanvas.width,sCanvas.height);
+  sCtx.clearRect(0,0,sCanvas.width,sCanvas.height);
   animateSplash();
 
   // Phase 2: Letter-by-letter title
