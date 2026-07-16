@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>M&amp;S Innovation Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+/* ───────────── RESET & BASE ───────────── */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;overflow-x:hidden;background:#fff}
+
+/* ───────────── CSS VARIABLES ───────────── */
+:root{
+  --ms-green:#00553A;
+  --ms-green-light:#007A53;
+  --ms-gold:#C9A84C;
+  --ms-gold-light:#E2C97E;
+  --ms-black:#111;
+  --ms-white:#FFFFFF;
+  --slide-open-bg:linear-gradient(135deg,#00553A 0%,#003D2A 50%,#001F15 100%);
+  --slide-cocreate-bg:linear-gradient(135deg,#1a1a5e 0%,#2d1b69 50%,#4a1a8a 100%);
+  --slide-prototype-bg:linear-gradient(135deg,#7a3d00 0%,#a85600 50%,#c46f00 100%);
+  --slide-pilot-bg:linear-gradient(135deg,#7a1030 0%,#a01535 50%,#c41e3a 100%);
+  --radius:16px;
+  --transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+
+/* ───────────── HEADER ───────────── */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(0,85,58,.08);
+  padding:0 2rem;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:var(--transition);
+}
+.site-header.scrolled{box-shadow:0 2px 24px rgba(0,0,0,.08)}
+.header-brand{display:flex;align-items:center;gap:.75rem}
+.header-logo{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--ms-green);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:1rem;letter-spacing:1px;
+}
+.header-title{font-weight:700;font-size:1.05rem;color:var(--ms-green);letter-spacing:.5px}
+.header-subtitle{font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:2px;font-weight:500}
+.header-nav{display:flex;gap:1.5rem;align-items:center}
+.header-nav a{
+  font-size:.78rem;text-transform:uppercase;letter-spacing:1.5px;
+  color:#555;text-decoration:none;font-weight:500;
+  transition:color .3s;position:relative;
+}
+.header-nav a::after{
+  content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+  background:var(--ms-green);transition:width .3s;
+}
+.header-nav a:hover{color:var(--ms-green)}
+.header-nav a:hover::after{width:100%}
+
+/* ───────────── FOOTER ───────────── */
+.site-footer{
+  background:var(--ms-black);color:rgba(255,255,255,.6);
+  padding:2.5rem 2rem;text-align:center;
+  font-size:.8rem;letter-spacing:.5px;
+}
+.footer-brand{color:var(--ms-gold);font-weight:600;font-size:1rem;margin-bottom:.5rem;letter-spacing:1px}
+.footer-line{display:flex;align-items:center;justify-content:center;gap:.5rem;flex-wrap:wrap}
+.footer-dot{width:4px;height:4px;border-radius:50%;background:var(--ms-gold);opacity:.5}
+
+/* ───────────── SLIDE SYSTEM ───────────── */
+.slide{
+  min-height:100vh;display:none;flex-direction:column;
+  opacity:0;transition:opacity .5s ease;
+  padding-top:64px;
+}
+.slide.active{display:flex;opacity:1}
+
+/* ───────────── HOME SLIDE ───────────── */
+#home{background:var(--ms-white)}
+.home-hero{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:3rem 1.5rem 2rem;
+}
+.home-intro{text-align:center;margin-bottom:3rem}
+.home-intro h1{
+  font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);
+  color:var(--ms-green);margin-bottom:.75rem;font-weight:700;
+}
+.home-intro p{
+  font-size:clamp(.9rem,2vw,1.1rem);color:#666;max-width:520px;margin:0 auto;line-height:1.6;
+}
+.home-intro .gold-line{
+  width:80px;height:3px;background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-light));
+  margin:1.25rem auto 0;border-radius:2px;
+}
+
+/* ───────────── QUESTION CARDS ───────────── */
+.question-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1.5rem;max-width:1100px;width:100%;
+}
+.question-card{
+  position:relative;
+  background:rgba(0,85,58,.03);
+  border:1px solid rgba(0,85,58,.1);
+  border-radius:var(--radius);
+  padding:2.25rem 2rem;
+  cursor:pointer;
+  transition:var(--transition);
+  overflow:hidden;
+}
+.question-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--ms-green),var(--ms-gold));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.question-card:hover::before{transform:scaleX(1)}
+.question-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 60px rgba(0,85,58,.12);
+  border-color:rgba(0,85,58,.2);
+  background:rgba(0,85,58,.05);
+}
+.question-card .card-number{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:700;
+  color:rgba(0,85,58,.08);position:absolute;top:12px;right:20px;
+}
+.question-card .card-icon{
+  width:48px;height:48px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.2rem;margin-bottom:1.25rem;
+  background:linear-gradient(135deg,var(--ms-green),var(--ms-green-light));
+  color:#fff;box-shadow:0 4px 16px rgba(0,85,58,.25);
+}
+.question-card .card-text{
+  font-family:'Dancing Script',cursive;
+  font-size:clamp(1.15rem,2.5vw,1.35rem);
+  line-height:1.55;color:#333;font-weight:600;
+}
+.question-card .card-label{
+  display:inline-flex;align-items:center;gap:.4rem;
+  margin-top:1.25rem;font-family:'Inter',sans-serif;
+  font-size:.75rem;text-transform:uppercase;letter-spacing:2px;
+  color:var(--ms-green);font-weight:600;
+}
+.question-card .card-label i{transition:transform .3s}
+.question-card:hover .card-label i{transform:translateX(4px)}
+
+/* ───────────── SPLASH SCREEN ───────────── */
+.splash-overlay{
+  position:fixed;top:0;left:0;width:100%;height:100%;
+  z-index:2000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.splash-overlay.active{opacity:1;pointer-events:all}
+.splash-overlay canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+.splash-title{
+  position:relative;z-index:1;
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.5rem,8vw,5rem);
+  font-weight:700;color:#fff;
+  text-align:center;letter-spacing:3px;
+  text-shadow:0 4px 40px rgba(0,0,0,.3);
+  transform:scale(.6);opacity:0;
+  transition:all .7s cubic-bezier(.34,1.56,.64,1);
+}
+.splash-overlay.active .splash-title{transform:scale(1);opacity:1}
+.splash-subtitle{
+  position:relative;z-index:1;
+  font-size:clamp(.8rem,2vw,1rem);color:rgba(255,255,255,.7);
+  text-transform:uppercase;letter-spacing:4px;
+  margin-top:1rem;text-align:center;
+  transform:translateY(20px);opacity:0;
+  transition:all .5s ease .3s;
+}
+.splash-overlay.active .splash-subtitle{transform:translateY(0);opacity:1}
+.splash-content{
+  display:flex;flex-direction:column;align-items:center;
+  position:relative;z-index:1;
+}
+
+/* ───────────── ANSWER SLIDES ───────────── */
+.answer-slide{color:#fff}
+.answer-slide .slide-inner{
+  flex:1;display:flex;flex-direction:column;
+  max-width:960px;width:100%;margin:0 auto;
+  padding:3.5rem 2rem 2rem;
+}
+.answer-slide .slide-tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.72rem;text-transform:uppercase;letter-spacing:3px;
+  color:rgba(255,255,255,.6);margin-bottom:1rem;
+  font-weight:500;
+}
+.answer-slide .slide-tag i{font-size:.65rem}
+.answer-slide h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,5vw,3rem);font-weight:700;
+  margin-bottom:.5rem;letter-spacing:1px;
+}
+.answer-slide .title-underline{
+  width:60px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--ms-gold),var(--ms-gold-light));
+  margin-bottom:2.5rem;
+}
+
+/* Content sections */
+.content-section{
+  margin-bottom:2rem;
+  animation:slideUp .6s ease both;
+}
+.content-section:nth-child(2){animation-delay:.1s}
+.content-section:nth-child(3){animation-delay:.2s}
+.content-section:nth-child(4){animation-delay:.3s}
+
+.section-card{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);
+  padding:2rem;
+  transition:var(--transition);
+}
+.section-card:hover{
+  background:rgba(255,255,255,.12);
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(0,0,0,.15);
+}
+.section-label{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.7rem;text-transform:uppercase;letter-spacing:2.5px;
+  font-weight:600;margin-bottom:.75rem;
+  color:rgba(255,255,255,.5);
+}
+.section-label i{font-size:.8rem}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.3rem;font-weight:600;
+  margin-bottom:.75rem;
+  color:rgba(255,255,255,.95);
+}
+.section-body{
+  font-size:.95rem;line-height:1.75;
+  color:rgba(255,255,255,.8);
+}
+
+/* "Why Us?" emphasis */
+.why-us-card{
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.2);
+  box-shadow:0 8px 32px rgba(0,0,0,.12);
+  position:relative;overflow:hidden;
+}
+.why-us-card::before{
+  content:'';position:absolute;top:0;left:0;width:4px;height:100%;
+  background:linear-gradient(180deg,var(--ms-gold),var(--ms-gold-light));
+  border-radius:0 2px 2px 0;
+}
+.why-us-card .section-label{color:var(--ms-gold-light)}
+
+/* "Have a Request?" CTA */
+.cta-card{
+  background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(201,168,76,.05));
+  border:1px solid rgba(201,168,76,.25);
+}
+.cta-card .section-label{color:var(--ms-gold-light)}
+
+/* Back button */
+.back-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.85rem 1.75rem;border-radius:50px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;font-size:.82rem;font-weight:500;
+  letter-spacing:1px;text-transform:uppercase;
+  cursor:pointer;transition:var(--transition);
+  margin-top:1rem;backdrop-filter:blur(10px);
+}
+.back-btn:hover{
+  background:rgba(255,255,255,.22);
+  transform:translateX(-4px);
+  box-shadow:0 4px 20px rgba(0,0,0,.15);
+}
+.back-btn i{transition:transform .3s}
+.back-btn:hover i{transform:translateX(-4px)}
+
+/* ───────────── ANIMATIONS ───────────── */
+@keyframes slideUp{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+.animate-in{animation:slideUp .6s ease both}
+
+/* ───────────── RESPONSIVE ───────────── */
+@media(max-width:768px){
+  .site-header{padding:0 1rem;height:56px}
+  .header-nav{display:none}
+  .header-subtitle{display:none}
+  .home-hero{padding:2rem 1rem 1.5rem}
+  .question-grid{grid-template-columns:1fr;gap:1rem}
+  .question-card{padding:1.75rem 1.5rem}
+  .answer-slide .slide-inner{padding:2.5rem 1.25rem 1.5rem}
+  .section-card{padding:1.5rem}
+  .slide{padding-top:56px}
+}
+@media(max-width:480px){
+  .question-card .card-text{font-size:1.1rem}
+  .home-intro h1{font-size:1.75rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-brand">
+    <div class="header-logo">M&amp;S</div>
+    <div>
+      <div class="header-title">Innovation Team</div>
+      <div class="header-subtitle">Marks &amp; Spencer</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a href="#" onclick="goHome(event)">Home</a>
+    <a href="#" onclick="goToSlide(event,'open-innovation')">Open Innovation</a>
+    <a href="#" onclick="goToSlide(event,'co-creation')">Co-Creation</a>
+    <a href="#" onclick="goToSlide(event,'rapid-prototyping')">Prototyping</a>
+    <a href="#" onclick="goToSlide(event,'rapid-pilots')">Pilots</a>
+  </nav>
+</header>
+
+<!-- ═══════════ SPLASH OVERLAY ═══════════ -->
+<div class="splash-overlay" id="splashOverlay">
+  <canvas id="splashCanvas"></canvas>
+  <div class="splash-content">
+    <div class="splash-title" id="splashTitle"></div>
+    <div class="splash-subtitle" id="splashSubtitle">M&amp;S Innovation</div>
+  </div>
+</div>
+
+<!-- ═══════════ SLIDE 1: HOME ═══════════ -->
+<section class="slide active" id="home">
+  <div class="home-hero">
+    <div class="home-intro animate-in">
+      <h1>How Can We Help You Innovate?</h1>
+      <p>Select the question that resonates with your challenge, and we'll show you how the Innovation Team can help.</p>
+      <div class="gold-line"></div>
+    </div>
+
+    <div class="question-grid">
+      <!-- Card 1 -->
+      <div class="question-card animate-in" style="animation-delay:.15s" onclick="navigateTo('open-innovation')">
+        <span class="card-number">01</span>
+        <div class="card-icon"><i class="fas fa-globe"></i></div>
+        <div class="card-text">"Want to look beyond our own walls, tapping founders, startups, and emerging technologies to move faster on the ideas that will shape retail's next decade?"</div>
+        <div class="card-label">Open Innovation <i class="fas fa-arrow-right"></i></div>
+      </div>
+      <!-- Card 2 -->
+      <div class="question-card animate-in" style="animation-delay:.25s" onclick="navigateTo('co-creation')">
+        <span class="card-number">02</span>
+        <div class="card-icon"><i class="fas fa-handshake"></i></div>
+        <div class="card-text">"Want to leverage our partner's solutions / build together with initial funding support?"</div>
+        <div class="card-label">Co-Creation <i class="fas fa-arrow-right"></i></div>
+      </div>
+      <!-- Card 3 -->
+      <div class="question-card animate-in" style="animation-delay:.35s" onclick="navigateTo('rapid-prototyping')">
+        <span class="card-number">03</span>
+        <div class="card-icon"><i class="fas fa-rocket"></i></div>
+        <div class="card-text">"Want to build something quickly to fix a problem or prove a concept?"</div>
+        <div class="card-label">Rapid Prototyping <i class="fas fa-arrow-right"></i></div>
+      </div>
+      <!-- Card 4 -->
+      <div class="question-card animate-in" style="animation-delay:.45s" onclick="navigateTo('rapid-pilots')">
+        <span class="card-number">04</span>
+        <div class="card-icon"><i class="fas fa-flask"></i></div>
+        <div class="card-text">"Want to test what's credible before competitors do, backing the innovations that scale, and staying close to where the market is heading rather than reacting to it."</div>
+        <div class="card-label">Rapid Pilots <i class="fas fa-arrow-right"></i></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-brand">M&amp;S Innovation Team</div>
+    <div class="footer-line">
+      <span>&copy; 2026 Marks &amp; Spencer</span>
+      <span class="footer-dot"></span>
+      <span>Innovation &amp; Technology</span>
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════ SLIDE 2: OPEN INNOVATION ═══════════ -->
+<section class="slide answer-slide" id="open-innovation" style="background:var(--slide-open-bg)">
+  <div class="slide-inner">
+    <div class="slide-tag"><i class="fas fa-circle"></i> M&amp;S Innovation</div>
+    <h2>OPEN INNOVATION</h2>
+    <div class="title-underline"></div>
+
+    <div class="content-section">
+      <div class="section-card">
+        <div class="section-label"><i class="fas fa-lightbulb"></i> What it is?</div>
+        <div class="section-body">The moment you want to look outside M&amp;S for what's best in terms of tools, technology, and trends — <strong>this is the place to start.</strong></div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card why-us-card">
+        <div class="section-label"><i class="fas fa-star"></i> Why Us?</div>
+        <div class="section-body">We don't rely just on AI research and Gartner reports alone. We have an incredible way to understand where the market is leading — <strong>we follow where money goes.</strong><br><br>We have an excellent team from <strong>True</strong>, Europe's leading Consumer and Retail investment firm. Its venture capital arm reviews hundreds of emerging companies a year, giving M&amp;S an early view of the technologies set to reshape retail, and where the real value lies.</div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card cta-card">
+        <div class="section-label"><i class="fas fa-paper-plane"></i> Have a request?</div>
+        <div class="section-body">Not sure if it is an Innovation problem or not? <strong>Let us take the headache &amp; think for you.</strong> One less thing to worry about — Just send across the details &amp; wait to hear back from us!</div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-brand">M&amp;S Innovation Team</div>
+    <div class="footer-line">
+      <span>&copy; 2026 Marks &amp; Spencer</span>
+      <span class="footer-dot"></span>
+      <span>Open Innovation</span>
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════ SLIDE 3: CO-CREATION ═══════════ -->
+<section class="slide answer-slide" id="co-creation" style="background:var(--slide-cocreate-bg)">
+  <div class="slide-inner">
+    <div class="slide-tag"><i class="fas fa-circle"></i> M&amp;S Innovation</div>
+    <h2>CO-CREATION</h2>
+    <div class="title-underline"></div>
+
+    <div class="content-section">
+      <div class="section-card">
+        <div class="section-label"><i class="fas fa-lightbulb"></i> What it is?</div>
+        <div class="section-body">We have an Innovation budget with all our existing partners for co-creating! If you are looking to build an innovative thing with our partners or looking for their products to be customized for us — <strong>Here is the place to begin.</strong></div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card why-us-card">
+        <div class="section-label"><i class="fas fa-star"></i> Why Us?</div>
+        <div class="section-body">We help you <strong>Spend Wisely!</strong> We can evaluate similar capabilities within our partner eco system &amp; bring the best to you — Thanks to our sister team — <strong>Partner Management team.</strong><br><br>We support till we have an MVP good enough for the product teams to take over.</div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card cta-card">
+        <div class="section-label"><i class="fas fa-paper-plane"></i> Have a request?</div>
+        <div class="section-body">Not sure if it is an Innovation problem or not? <strong>Let us take the headache &amp; think for you.</strong> One less thing to worry about — Just send across the details &amp; wait to hear back from us!</div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-brand">M&amp;S Innovation Team</div>
+    <div class="footer-line">
+      <span>&copy; 2026 Marks &amp; Spencer</span>
+      <span class="footer-dot"></span>
+      <span>Co-Creation</span>
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════ SLIDE 4: RAPID PROTOTYPING ═══════════ -->
+<section class="slide answer-slide" id="rapid-prototyping" style="background:var(--slide-prototype-bg)">
+  <div class="slide-inner">
+    <div class="slide-tag"><i class="fas fa-circle"></i> M&amp;S Innovation</div>
+    <h2>RAPID PROTOTYPING</h2>
+    <div class="title-underline"></div>
+
+    <div class="content-section">
+      <div class="section-card">
+        <div class="section-label"><i class="fas fa-lightbulb"></i> What it is?</div>
+        <div class="section-body">Quick way to resolve existing problems that need our engineers' time or to prove a concept before getting into a detailed development.</div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card why-us-card">
+        <div class="section-label"><i class="fas fa-star"></i> Why Us?</div>
+        <div class="section-body">Excellent <strong>Innovation Squad</strong> that will help you build things pretty quickly. We do Innovation guilds for set of engineers from various teams to build something quickly.<br><br>Thanks to <strong>James Hoare &amp; Lisa</strong>, our Engineering community sponsors.</div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card cta-card">
+        <div class="section-label"><i class="fas fa-paper-plane"></i> Have a request?</div>
+        <div class="section-body">Not sure if it is an Innovation problem or not? <strong>Let us take the headache &amp; think for you.</strong> One less thing to worry about — Just send across the details &amp; wait to hear back from us!</div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-brand">M&amp;S Innovation Team</div>
+    <div class="footer-line">
+      <span>&copy; 2026 Marks &amp; Spencer</span>
+      <span class="footer-dot"></span>
+      <span>Rapid Prototyping</span>
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════ SLIDE 5: RAPID PILOTS ═══════════ -->
+<section class="slide answer-slide" id="rapid-pilots" style="background:var(--slide-pilot-bg)">
+  <div class="slide-inner">
+    <div class="slide-tag"><i class="fas fa-circle"></i> M&amp;S Innovation</div>
+    <h2>RAPID PILOTS</h2>
+    <div class="title-underline"></div>
+
+    <div class="content-section">
+      <div class="section-card">
+        <div class="section-label"><i class="fas fa-lightbulb"></i> What it is?</div>
+        <div class="section-body">Your gateway to become a <strong>pioneer in the industry!</strong> Test things before our competitors do! Break the cycle of waiting to be proven by others &amp; miss to lead without spending any money!</div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card why-us-card">
+        <div class="section-label"><i class="fas fa-star"></i> Why Us?</div>
+        <div class="section-body">We help you <strong>Spend less, Save more &amp; still lead the market!</strong><br><br>How we bring in Robots, smart carts &amp; other exciting things to test with no cost from your budget — <strong>That's our Innovation Team's Magic!</strong></div>
+      </div>
+    </div>
+
+    <div class="content-section">
+      <div class="section-card cta-card">
+        <div class="section-label"><i class="fas fa-paper-plane"></i> Have a request?</div>
+        <div class="section-body">Not sure if it is an Innovation problem or not? <strong>Let us take the headache &amp; think for you.</strong> One less thing to worry about — Just send across the details &amp; wait to hear back from us!</div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goHome(event)"><i class="fas fa-arrow-left"></i> Back to Home</button>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-brand">M&amp;S Innovation Team</div>
+    <div class="footer-line">
+      <span>&copy; 2026 Marks &amp; Spencer</span>
+      <span class="footer-dot"></span>
+      <span>Rapid Pilots</span>
+    </div>
+  </footer>
+</section>
+
+<!-- ═══════════ JAVASCRIPT ═══════════ -->
+<script>
+(function(){
+  /* ── Slide config ── */
+  var splashColors = {
+    'open-innovation':  {bg:'#00553A', particles:'rgba(201,168,76,.6)'},
+    'co-creation':      {bg:'#2d1b69', particles:'rgba(180,160,255,.5)'},
+    'rapid-prototyping': {bg:'#a85600', particles:'rgba(255,200,100,.5)'},
+    'rapid-pilots':     {bg:'#a01535', particles:'rgba(255,160,160,.5)'}
+  };
+  var splashLabels = {
+    'open-innovation':'OPEN INNOVATION',
+    'co-creation':'CO-CREATION',
+    'rapid-prototyping':'RAPID PROTOTYPING',
+    'rapid-pilots':'RAPID PILOTS'
+  };
+
+  var overlay   = document.getElementById('splashOverlay');
+  var canvas    = document.getElementById('splashCanvas');
+  var ctx       = canvas.getContext('2d');
+  var titleEl   = document.getElementById('splashTitle');
+  var animId    = null;
+  var particles = [];
+
+  /* ── Particle system ── */
+  function resizeCanvas(){
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  function Particle(color){
+    this.x  = Math.random() * canvas.width;
+    this.y  = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 2;
+    this.vy = (Math.random() - 0.5) * 2;
+    this.r  = Math.random() * 3 + 1;
+    this.color = color;
+    this.alpha = Math.random() * 0.5 + 0.2;
+    this.life  = 1;
+    this.decay = Math.random() * 0.008 + 0.003;
+  }
+  Particle.prototype.update = function(){
+    this.x += this.vx;
+    this.y += this.vy;
+    this.life -= this.decay;
+    this.alpha = this.life * 0.6;
+  };
+  Particle.prototype.draw = function(){
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = this.color.replace(/[\d.]+\)$/, this.alpha + ')');
+    ctx.fill();
+  };
+
+  /* Ripple ring */
+  var ripples = [];
+  function Ripple(x, y, color){
+    this.x = x; this.y = y;
+    this.r = 0; this.maxR = Math.max(canvas.width, canvas.height) * 0.6;
+    this.speed = 8; this.alpha = 0.4;
+    this.color = color;
+  }
+  Ripple.prototype.update = function(){
+    this.r += this.speed;
+    this.alpha = 0.4 * (1 - this.r / this.maxR);
+  };
+  Ripple.prototype.draw = function(){
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.strokeStyle = this.color.replace(/[\d.]+\)$/, this.alpha + ')');
+    ctx.lineWidth = 2;
+    ctx.stroke();
+  };
+
+  function animateParticles(bg, pColor){
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    /* spawn particles */
+    if(particles.length < 120){
+      particles.push(new Particle(pColor));
+    }
+    for(var i = particles.length - 1; i >= 0; i--){
+      particles[i].update();
+      particles[i].draw();
+      if(particles[i].life <= 0) particles.splice(i, 1);
+    }
+
+    /* ripples */
+    for(var j = ripples.length - 1; j >= 0; j--){
+      ripples[j].update();
+      ripples[j].draw();
+      if(ripples[j].alpha <= 0) ripples.splice(j, 1);
+    }
+
+    animId = requestAnimationFrame(function(){ animateParticles(bg, pColor); });
+  }
+
+  function stopAnimation(){
+    if(animId){ cancelAnimationFrame(animId); animId = null; }
+    particles = [];
+    ripples = [];
+  }
+
+  /* ── Show splash then slide ── */
+  function showSplash(slideId, cb){
+    var cfg = splashColors[slideId];
+    resizeCanvas();
+    titleEl.textContent = splashLabels[slideId];
+    overlay.style.background = cfg.bg;
+
+    /* fire ripples from center */
+    var cx = canvas.width / 2, cy = canvas.height / 2;
+    ripples.push(new Ripple(cx, cy, cfg.particles));
+    setTimeout(function(){ ripples.push(new Ripple(cx, cy, cfg.particles)); }, 200);
+    setTimeout(function(){ ripples.push(new Ripple(cx, cy, cfg.particles)); }, 400);
+
+    overlay.classList.add('active');
+    animateParticles(cfg.bg, cfg.particles);
+
+    setTimeout(function(){
+      overlay.classList.remove('active');
+      setTimeout(function(){
+        stopAnimation();
+        if(cb) cb();
+      }, 350);
+    }, 1500);
+  }
+
+  /* ── Slide switching ── */
+  function showSlide(id){
+    var slides = document.querySelectorAll('.slide');
+    for(var i = 0; i < slides.length; i++){
+      slides[i].classList.remove('active');
+    }
+    var target = document.getElementById(id);
+    if(target){
+      target.classList.add('active');
+      /* re-trigger animations */
+      var sections = target.querySelectorAll('.content-section');
+      for(var j = 0; j < sections.length; j++){
+        sections[j].style.animation = 'none';
+        sections[j].offsetHeight; /* reflow */
+        sections[j].style.animation = '';
+      }
+    }
+    window.scrollTo(0, 0);
+    updateHeader(id);
+  }
+
+  function updateHeader(slideId){
+    var header = document.getElementById('siteHeader');
+    if(slideId === 'home'){
+      header.style.background = 'rgba(255,255,255,.92)';
+      header.style.borderBottomColor = 'rgba(0,85,58,.08)';
+      header.querySelectorAll('.header-title')[0].style.color = '#00553A';
+      var links = header.querySelectorAll('.header-nav a');
+      for(var i = 0; i < links.length; i++) links[i].style.color = '#555';
+    } else {
+      header.style.background = 'rgba(0,0,0,.35)';
+      header.style.borderBottomColor = 'rgba(255,255,255,.08)';
+      header.querySelectorAll('.header-title')[0].style.color = '#fff';
+      var links2 = header.querySelectorAll('.header-nav a');
+      for(var j = 0; j < links2.length; j++) links2[j].style.color = 'rgba(255,255,255,.75)';
+    }
+  }
+
+  /* ── Public API ── */
+  window.navigateTo = function(slideId){
+    showSplash(slideId, function(){ showSlide(slideId); });
+  };
+  window.goHome = function(e){
+    if(e) e.preventDefault();
+    showSlide('home');
+  };
+  window.goToSlide = function(e, slideId){
+    if(e) e.preventDefault();
+    showSplash(slideId, function(){ showSlide(slideId); });
+  };
+
+  /* ── Header scroll effect ── */
+  window.addEventListener('scroll', function(){
+    var header = document.getElementById('siteHeader');
+    if(window.scrollY > 10) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+})();
+</script>
+</body>
+</html>
