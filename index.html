@@ -303,14 +303,7 @@ function showSplash(slideId,cb){
   // Phase 2: Letter-by-letter title
   animateTitle(splashLabels[slideId]);
 
-  // Phase 3: Images slide in staggered
-  var srcs=splashImgs[slideId]||[];
-  srcs.forEach(function(src,idx){
-    var img=document.createElement("img");
-    img.src=src;img.alt="Solution";
-    imgsEl.appendChild(img);
-    setTimeout(function(){img.classList.add("show")},900+idx*350);
-  });
+  // Phase 3: No foreground images - background images are enough
 
   // Progress dots
   var counter=document.getElementById("splashCounter");
