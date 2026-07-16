@@ -6,11 +6,11 @@
 <title>D&amp;T Innovation Team | M&amp;S</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{font-size:16px}
-body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;height:100vh;width:100vw}
+body{font-family:"DM Sans",Arial,Helvetica,sans-serif;color:#111;overflow:hidden;background:#fff;height:100vh;width:100vw}
 :root{--black:#111;--white:#fff;--transition:all .5s cubic-bezier(.4,0,.2,1)}
 
 .site-header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2.5rem;height:64px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.06);transition:var(--transition)}
@@ -18,7 +18,7 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 .site-header.dark .header-title,.site-header.dark .header-sub{color:#fff}
 .site-header.dark .hamburger span{background:#fff}
 .header-brand{display:flex;flex-direction:column;justify-content:center}
-.header-title{font-weight:800;font-size:.95rem;color:#111;letter-spacing:1px;line-height:1.2;transition:color .3s}
+.header-title{font-family:"DM Sans",Arial,sans-serif;font-weight:700;font-size:.95rem;color:#111;letter-spacing:1.5px;line-height:1.2;transition:color .3s;text-transform:uppercase}
 .header-sub{font-size:.6rem;color:#888;text-transform:uppercase;letter-spacing:3px;font-weight:400;transition:color .3s}
 .hamburger{width:32px;height:24px;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;position:relative;z-index:1001}
 .hamburger span{display:block;width:100%;height:2px;background:#111;border-radius:1px;transition:var(--transition)}
@@ -29,7 +29,7 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 .nav-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.97);z-index:999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .4s}
 .nav-overlay.open{opacity:1;pointer-events:all}
 .nav-links{text-align:center}
-.nav-links a{display:block;font-family:"Playfair Display",serif;font-size:clamp(1.5rem,4vw,2.5rem);color:#fff;text-decoration:none;margin:1.5rem 0;letter-spacing:2px;opacity:0;transform:translateY(20px);transition:all .4s}
+.nav-links a{display:block;font-family:"DM Sans",Arial,sans-serif;font-size:clamp(1.5rem,4vw,2.5rem);color:#fff;text-decoration:none;margin:1.5rem 0;letter-spacing:3px;text-transform:uppercase;font-weight:300;opacity:0;transform:translateY(20px);transition:all .4s}
 .nav-overlay.open .nav-links a{opacity:1;transform:translateY(0)}
 .nav-overlay.open .nav-links a:nth-child(1){transition-delay:.1s}
 .nav-overlay.open .nav-links a:nth-child(2){transition-delay:.2s}
@@ -46,7 +46,7 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 #home{background:#fff}
 .home-center{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1rem 2rem}
 .brand-center{text-align:center;margin-bottom:2.5rem;opacity:0;animation:fadeUp .8s ease .2s forwards;transform:translateY(15px)}
-.brand-center h1{font-family:"Playfair Display",serif;font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;color:#111;letter-spacing:2px;margin-bottom:.3rem}
+.brand-center h1{font-family:"DM Sans",Arial,sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:700;color:#111;letter-spacing:4px;margin-bottom:.3rem;text-transform:uppercase}
 .brand-center p{font-size:clamp(.65rem,1.2vw,.8rem);text-transform:uppercase;letter-spacing:5px;color:#999;font-weight:400}
 .brand-line{width:50px;height:1px;background:#111;margin:.8rem auto 0}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
@@ -60,14 +60,14 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 .question-card::after{content:"";position:absolute;bottom:0;left:0;width:0;height:2px;background:#111;transition:width .4s}
 .question-card:hover{background:#fafafa;transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.08)}
 .question-card:hover::after{width:100%}
-.card-text{font-family:"Dancing Script",cursive;font-size:clamp(1.05rem,1.8vw,1.3rem);line-height:1.55;color:#222;font-weight:600}
+.card-text{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(1.05rem,1.8vw,1.25rem);line-height:1.6;color:#222;font-weight:500;font-style:italic}
 .card-arrow{position:absolute;bottom:12px;right:16px;font-size:.7rem;color:#bbb;transition:all .3s}
 .question-card:hover .card-arrow{color:#111;transform:translateX(4px)}
 
 .splash-overlay{position:fixed;top:0;left:0;width:100%;height:100%;z-index:2000;display:flex;align-items:center;justify-content:center;background:#111;opacity:0;pointer-events:none;transition:opacity .5s}
 .splash-overlay.active{opacity:1;pointer-events:all}
 .splash-content{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center;gap:2rem}
-.splash-title{font-family:"Playfair Display",serif;font-size:clamp(2.5rem,8vw,5rem);font-weight:900;color:#fff;letter-spacing:6px;line-height:1.15;white-space:pre-line;transform:scale(.5);opacity:0;transition:all .9s cubic-bezier(.34,1.56,.64,1)}
+.splash-title{font-family:"DM Sans",Arial,sans-serif;font-size:clamp(2.5rem,8vw,5rem);font-weight:700;color:#fff;letter-spacing:8px;line-height:1.15;white-space:pre-line;text-transform:uppercase;transform:scale(.5);opacity:0;transition:all .9s cubic-bezier(.34,1.56,.64,1)}
 .splash-overlay.active .splash-title{transform:scale(1);opacity:1}
 .splash-images{display:flex;gap:1.5rem;align-items:center;justify-content:center;flex-wrap:wrap;max-width:700px}
 .splash-images img{width:180px;height:auto;border-radius:8px;opacity:0;transform:translateY(30px) scale(.8);transition:all .6s cubic-bezier(.4,0,.2,1);box-shadow:0 8px 32px rgba(0,0,0,.4)}
@@ -81,7 +81,7 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 
 .answer-slide{color:#fff;overflow:hidden}
 .answer-inner{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:880px;width:100%;margin:0 auto;padding:1.5rem 2.5rem;height:calc(100vh - 64px)}
-.answer-slide h2{font-family:"Playfair Display",serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:800;letter-spacing:3px;margin-bottom:.3rem;opacity:0;transform:translateY(-25px)}
+.answer-slide h2{font-family:"DM Sans",Arial,sans-serif;font-size:clamp(1.8rem,4.5vw,3rem);font-weight:700;letter-spacing:5px;text-transform:uppercase;margin-bottom:.3rem;opacity:0;transform:translateY(-25px)}
 .answer-slide h2.anim-in{animation:ansTitleIn .7s cubic-bezier(.34,1.56,.64,1) forwards}
 @keyframes ansTitleIn{to{opacity:1;transform:translateY(0)}}
 .ans-line{width:0;height:1px;background:#fff;margin-bottom:1.5rem;transition:width .6s ease .2s}
@@ -118,7 +118,7 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 </head>
 <body>
 <header class="site-header" id="siteHeader">
-<div class="header-brand"><div class="header-title">D&amp;T Innovation Team</div><div class="header-sub">Marks &amp; Spencer</div></div>
+<div class="header-brand"><div class="header-title">D &amp; T Innovation Team</div><div class="header-sub">Marks &amp; Spencer</div></div>
 <div class="hamburger" id="hamburger" onclick="toggleNav()"><span></span><span></span><span></span></div>
 </header>
 <div class="nav-overlay" id="navOverlay"><div class="nav-links">
@@ -136,7 +136,7 @@ body{font-family:"Inter",sans-serif;color:#111;overflow:hidden;background:#fff;h
 </div></div>
 
 <section class="slide active" id="home"><div class="home-center">
-<div class="brand-center"><h1>D&amp;T Innovation Team</h1><p>Innovating Today. Shaping Tomorrow.</p><div class="brand-line"></div></div>
+<div class="brand-center"><h1>D &amp; T Innovation Team</h1><p>Innovating Today. Shaping Tomorrow.</p><div class="brand-line"></div></div>
 <div class="question-grid">
 <div class="question-card" onclick="navigateTo('open-innovation')"><div class="card-text">&ldquo;Want to look beyond our own walls, tapping founders, startups, and emerging technologies to move faster on the ideas that will shape retail&rsquo;s next decade?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
 <div class="question-card" onclick="navigateTo('co-creation')"><div class="card-text">&ldquo;Want to leverage our partner&rsquo;s solutions / build together with initial funding support?&rdquo;</div><div class="card-arrow">&#8594;</div></div>
